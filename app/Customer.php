@@ -32,6 +32,9 @@ class Customer extends Model{
     public function scopeWithDebt($query){
         return $query->where('status','deuda');
     }
+    public function scopeSearch($query, $search){
+        return $query->where('fullname','LIKE','%'.$search.'%')->orWhere('phone','LIKE','%'.$search.'%');
+    }
     public function validate($request){
         return $request->validate([
             'fullname'=>'required',

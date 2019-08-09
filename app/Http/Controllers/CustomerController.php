@@ -7,8 +7,12 @@ use App\Customer;
 use Auth;
 class CustomerController extends Controller{
    
-    public function index(){
-        $customers = Customer::customers()->get();
+    public function index(Request $request){
+        $search = $request->search;
+        if($search != null)
+            $customers = Customer::search($search)->get();
+        else
+            $customers = Customer::customers()->get();
         return view('customers.index',compact('customers'));
     }
     public function create(){
